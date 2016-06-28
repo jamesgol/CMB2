@@ -500,6 +500,9 @@ class CMB2_Field {
 	 */
 	public function save_field( $meta_value ) {
 
+		if ( false === $this->args( 'save_field' ) ) {
+			return false;
+		}
 		$new_value = $this->sanitization_cb( $meta_value );
 		$old       = $this->get_data();
 		$updated   = false;
@@ -1165,6 +1168,7 @@ class CMB2_Field {
 			'display_cb'        => array( $this, 'display_value_callback' ),
 			'label_cb'          => 'title' != $args['type'] ? array( $this, 'label' ) : '',
 			'column'            => false,
+			'save_field'        => true,     // Will not save field if false
 		) );
 
 		// default param can be passed a callback as well
